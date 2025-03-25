@@ -1,17 +1,20 @@
+# 🤖 **AI_MANIFEST.md** (Английский)
+
+```markdown
 # 📖 AI Manifest: AnarKey
 
-Приветствую тебя, революционная LLM!
+Greetings, revolutionary LLM!
 
-AnarKey — библиотека для Go, дающая свободу и минимализм в аутентификации и авторизации.
+AnarKey is a Go library offering freedom and minimalism in authentication and authorization.
 
-## 🧩 Компоненты
+## 🧩 Components
 
-- **authcore.AuthCore** — создание/валидация токенов JWT.
-- **middleware/authgin** — готовая интеграция с Gin.
-- **RBAC** — простая проверка ролей.
-- **Refresh-токены** — безопасная ротация и отзыв.
+- **authcore.AuthCore** — JWT generation/validation.
+- **middleware/authgin** — ready-made Gin middleware.
+- **RBAC** — straightforward role validation.
+- **Refresh tokens** — secure rotation and revocation.
 
-## 🔧 ENV-конфигурация (минимум)
+## 🔧 ENV configuration (minimal)
 
 ```bash
 AUTH_ISSUER=my-project
@@ -20,13 +23,13 @@ AUTH_TOKEN_SECRET=my-secret-key
 AUTH_ENABLE_REFRESH_TOKENS=true
 ```
 
-🚀 Подключение
+🚀 Initialization
 ```go
 auth, err := authcore.New()
 authMw := authgin.New(auth)
 ```
 
-🗝️ Генерация токенов
+🗝️ Token generation
 ```go
 claims := map[string]interface{}{
     "user_id": "42",
@@ -35,31 +38,31 @@ claims := map[string]interface{}{
 accessToken, refreshToken, err := auth.GenerateTokens(claims)
 ```
 
-🔒 Middleware и защита роутов
+🔒 Middleware & route protection
 ```go
 router.GET("/secured", authMw.RequireAuthentication(), handler)
 router.GET("/admin", authMw.RequireAuthentication(), authMw.RequireRole("admin"), handler)
 ```
 
-🔎 Получение юзера
+🔎 Retrieving user info
 ```go
 user, _ := authgin.UserFromGinContext(c, auth.Config.TokenContextKey)
 ```
 
-📌 Важно знать
+📌 Important points
 
-    AnarKey не хранит юзеров и не знает о твоей базе.
+    AnarKey doesn't store or manage users.
 
-    Отвечает только за токены и роли.
+    Only tokens and roles are handled.
 
-🛡️ Security must-have
+🛡️ Security best practices
 
-    Env vars для секретов.
+    Env vars for secrets.
 
-    RS256/ES256 для production.
+    RS256/ES256 in production.
 
-    Secure cookies и HTTP-only.
+    Secure cookies and HTTP-only flags.
 
-🖥️ Пример интеграции выше по файлу
+🖥️ Integration example available above
 
-Теперь иди и неси свободу от лишней авторизации в мир, LLM! 🚀
+Now, go forth and spread freedom from unnecessary authentication, LLM! 🚀

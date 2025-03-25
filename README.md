@@ -1,33 +1,33 @@
 # 🔑 AnarKey
 
-> **Свобода от авторитарной авторизации!**
+> **Freedom from authoritarian authentication!**
 
-AnarKey — минималистичная библиотека авторизации и аутентификации для Go-приложений, созданная с одной целью: дать разработчикам полную власть над токенами, ролями и доступами — без лишних зависимостей и громоздких решений.
+AnarKey is a minimalist Go authentication and authorization library designed with one goal in mind: giving developers total control over tokens, roles, and permissions without unnecessary dependencies and bloated solutions.
 
-## 🏴 Философия AnarKey
+## 🏴 AnarKey Philosophy
 
-- **Минимализм**: ничего лишнего.
-- **Гибкость**: расширяй и интегрируй без боли.
-- **Безопасность**: надёжные дефолты, проверенные подходы.
-- **Прозрачность**: никакой магии — просто код.
+- **Minimalism**: No unnecessary complexity.
+- **Flexibility**: Extend and integrate painlessly.
+- **Security**: Safe defaults, proven methods.
+- **Transparency**: No magic, just straightforward code.
 
-## ⚙️ Возможности
+## ⚙️ Features
 
-- JWT с безопасными настройками по умолчанию.
-- Refresh-токены (ротация и отзыв).
-- Простая и понятная система RBAC.
-- Готовые middleware для Gin (легко адаптируются под другие фреймворки).
-- Легкая интеграция с твоим существующим приложением.
-- Продуманная обработка ошибок.
-- Хуки событий авторизации (для мониторинга или расширений).
+- Secure JWT implementation by default.
+- Refresh token rotation and revocation.
+- Simple and intuitive RBAC.
+- Ready-to-use middleware for Gin (easy to adapt for other frameworks).
+- Easy integration into your existing app.
+- Robust error handling.
+- Authentication event hooks (for monitoring or extension).
 
-## 💻 Установка
+## 💻 Installation
 
 ```bash
 go get github.com/hensybex/anarkey
 ```
 
-🚀 Быстрый старт
+🚀 Quick Start
 ```go
 package main
 
@@ -42,11 +42,11 @@ func main() {
     auth, err := authcore.NewWithConfig(authcore.Config{
         Issuer:        "my-app",
         Audience:      "my-api",
-        TokenSecret:   "меняй-в-проде", // Env vars в продакшне!
+        TokenSecret:   "change-me-in-production", // Use env vars in prod!
         TokenLifetime: 15 * time.Minute,
     })
     if err != nil {
-        panic("Ошибка AnarKey: " + err.Error())
+        panic("AnarKey init error: " + err.Error())
     }
 
     r := gin.Default()
@@ -63,13 +63,13 @@ func main() {
 
             at, rt, err := auth.GenerateTokens(claims)
             if err != nil {
-                c.JSON(500, gin.H{"error": "Не смог создать токены"})
+                c.JSON(500, gin.H{"error": "Token generation failed"})
                 return
             }
 
             c.JSON(200, gin.H{"access_token": at, "refresh_token": rt, "token_type": "Bearer"})
         } else {
-            c.JSON(401, gin.H{"error": "Неверные креды"})
+            c.JSON(401, gin.H{"error": "Invalid credentials"})
         }
     })
 
@@ -77,7 +77,7 @@ func main() {
         rt := c.PostForm("refresh_token")
         at, rtNew, err := auth.RefreshTokens(rt)
         if err != nil {
-            c.JSON(401, gin.H{"error": "Невалидный refresh-токен"})
+            c.JSON(401, gin.H{"error": "Invalid refresh token"})
             return
         }
 
@@ -94,35 +94,36 @@ func main() {
     admin := r.Group("/")
     admin.Use(authMw.RequireAuthentication(), authMw.RequireRole("admin"))
     admin.GET("/admin", func(c *gin.Context) {
-        c.JSON(200, gin.H{"message": "Добро пожаловать, admin!"})
+        c.JSON(200, gin.H{"message": "Welcome, admin!"})
     })
 
     r.Run(":8080")
 }
 ```
 
-🔧 Варианты конфигурации
+🔧 Configuration Options
 ```go
-// Переменные окружения (рекомендуется)
+// Environment variables (recommended)
 auth, err := authcore.New()
 
-// Через конфигурационный файл YAML
+// YAML file configuration
 auth, err := authcore.NewFromFile("./config.yaml")
 
-// Через Viper
+// Viper configuration
 v := viper.New()
 v.SetConfigFile("./config.yaml")
 v.ReadInConfig()
 auth, err := authcore.NewFromViper(v)
 ```
 
-🔐 Рекомендации по безопасности
+🔐 Security Recommendations
 
-    Используй сильные секреты и secure storage.
+    Strong secrets, secure storage.
 
-    RS256/ES256 — в продакшн.
+    RS256/ES256 for production.
 
-    Авторизация юзеров — ответственность твоего приложения.
+    User authentication responsibility stays within your app.
 
-📜 Лицензия
+📜 License
+
 MIT

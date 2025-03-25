@@ -1,28 +1,28 @@
-# 🛠 Дорожная карта развития AnarKey
+# 🛠 AnarKey Roadmap
 
-> **Свобода и ответственность идут рука об руку.**
+> **Freedom and responsibility go hand in hand.**
 
-⚠️ **Важно**: AnarKey изначально создан минималистичным и легко расширяемым. Любые дополнения обязаны следовать философии минимализма и прозрачности.
+⚠️ **Important**: AnarKey was designed minimalist and easily extensible from the outset. Any addition must strictly follow minimalism and transparency.
 
-## 🚀 Что можно добавить?
+## 🚀 Potential Extensions
 
 - Middleware: Echo, Fiber, Chi.
-- Интеграция с Casbin и OPA (опционально).
-- Поддержка токенов PASETO и JWKS-endpoints.
-- ABAC и улучшения RBAC.
-- Конфигурация через Vault и Secret Managers.
-- Расширенные хуки (OnLogin, OnLogout, OnRefresh).
-- Клиенты для Flutter, Dart, TypeScript.
-- RFC7807-совместимые ошибки.
-- Observability: Prometheus-метрики и структурированное логирование.
-- Тесты: Unit, Integration, Fuzzing.
-- CI/CD pipeline.
+- Casbin and OPA integration (optional).
+- PASETO tokens and JWKS endpoints.
+- ABAC and RBAC enhancements.
+- Configuration via Vault, AWS/GCP Secret Managers.
+- Extended hooks (OnLogin, OnLogout, OnRefresh).
+- Clients for Flutter, Dart, TypeScript.
+- RFC7807-compatible error responses.
+- Observability: Prometheus metrics and structured logging.
+- Tests: Unit, Integration, Fuzzing.
+- CI/CD pipelines.
 
-## 🎯 Основные принципы AnarKey:
+## 🎯 Core Principles of AnarKey:
 
-- Минимализм.
-- Безопасность по умолчанию.
-- Чистый, расширяемый код.
-- Прозрачные API, документация и тесты.
+- Minimalism.
+- Secure defaults.
+- Clean, extendable code.
+- Transparent APIs, documentation, and tests.
 
-Присоединяйся, свободный разработчик! 🏴
+Join us, fellow freedom-loving developer! 🏴
