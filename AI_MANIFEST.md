@@ -1,4 +1,4 @@
-# 🤖 **AI_MANIFEST.md** (Английский)
+# 🤖 **AI_MANIFEST.md**
 
 ```markdown
 # 📖 AI Manifest: AnarKey
